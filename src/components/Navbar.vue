@@ -21,6 +21,7 @@
         width: 100%;
         color: black;
         margin-bottom: 60px;
+        margin-left: 20px;
     }
     .navbar {
         display: flex;

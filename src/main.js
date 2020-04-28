@@ -3,6 +3,7 @@ import App from './App.vue'
 import HighchartsVue from "highcharts-vue";
 import Highcharts from "highcharts";
 import dataModule from "highcharts/modules/data";
+import store from "./store";
 
 dataModule(Highcharts);
 
@@ -15,5 +16,9 @@ Highcharts.setOptions({
 });
 
 new Vue({
+  components: {
+    app: App
+  },
+  store,
   render: h => h(App),
-}).$mount('#app')
+}).$mount('#app');

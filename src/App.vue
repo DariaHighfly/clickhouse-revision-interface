@@ -1,42 +1,74 @@
 <template>
-  <div id="app">
-    <Navbar/>
-    <div class="box">
-      <Information/>
-      <StatisticsCharts/>
-      <StatisticsAllTests/>
+    <div id="app">
+        <Navbar/>
+        <div class="box">
+            <Information
+                    :commits="commits"
+                    :allQueries="allQueries">
+            </Information>
+            <!--<StatisticsCharts/>-->
+            <StatisticsAllTables
+                    :commits="commits"
+                    :changes="changes"
+                    :unstableQueries="unstableQueries"
+                    :runErrors="runErrors"
+                    :skippedTests="skippedTests"
+                    :badTests="badTests"
+                    :testTimes="testTimes"
+                    :slowOnClientTests="slowOnClientTests">
+            </StatisticsAllTables>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-import Navbar from "./components/Navbar"
-import Information from "./components/Information"
-import StatisticsCharts from "./components/StatisticsCharts"
-import StatisticsAllTests from "./components/StatisticsAllTests"
+    import { mapGetters } from "vuex";
 
+    import Navbar from "./components/Navbar"
+    import Information from "./components/Information"
+    import StatisticsCharts from "./components/StatisticsCharts"
+    import StatisticsAllTables from "./components/StatisticsAllTables"
 
-export default {
-  name: 'app',
-  components: {
-    Navbar,
-    Information,
-    StatisticsCharts,
-    StatisticsAllTests,
-  }
-}
+    export default {
+        name: 'app',
+        components: {
+            Navbar,
+            Information,
+            StatisticsCharts,
+            StatisticsAllTables,
+        },
+        computed: {
+            ...mapGetters({
+                commits: "getCommits",
+                changes: "getChanges",
+                unstableQueries: "getUnstableQueries",
+                runErrors: "getRunErrors",
+                skippedTests: "getSkippedTests",
+                badTests: "getBadTests",
+                testTimes: "getTestTimes",
+                slowOnClientTests: "getSlowOnClientTests",
+                allQueries: "getAllQueries",
+                // dataErrors: "getDataErrors"
+            })
+        },
+        created() {
+            this.$store.dispatch("loadData")
+                .then(() => console.log("DATA LOADED SUCCESSFULLY"))
+                .catch(() => console.log("DATA LOADED WITH ERRORS"))
+        }
+    }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 40px;
-}
-  .box {
-    padding: 0 140px 0 140px;
-  }
+    #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 20px;
+    }
+    .box {
+        padding: 0 20px 0 20px;
+    }
 </style>

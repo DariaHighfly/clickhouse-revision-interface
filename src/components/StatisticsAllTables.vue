@@ -139,7 +139,7 @@
                             { newTime: "New, s" },
                             { relativeDifference: "Relative difference (new - old)/old" },
                             { quantiles: "Randomization distribution quantiles [5%, 50%, 95%, 99%]" },
-                            { testNam:  "Test" },
+                            { testName:  "Test" },
                             { query: "Query" }
                         ],
                         values: [...this.changes],
@@ -231,6 +231,11 @@
                             } else if (typeof a[key] === "number") {
                                 return this.reverse * (a[key] - b[key]);
                             } else if (Array.isArray(a[key])) {
+                                for (let i = 0; i !== a[key].length; ++i) {
+                                    if (a[key][i] !== b[key][i]) {
+                                        return this.reverse * (a[key][i] - b[key][i]);
+                                    }
+                                }
                                 return 0;
                             } else {
                                 return 0;

@@ -2,11 +2,7 @@
     <div id="app">
         <Navbar/>
         <div class="box">
-            <Information
-                    :commits="commits"
-                    :allQueries="allQueries">
-            </Information>
-            <!--<StatisticsCharts/>-->
+            <StatisticsCharts/>
             <StatisticsAllTables
                     :commits="commits"
                     :changes="changes"
@@ -51,11 +47,11 @@
                 // dataErrors: "getDataErrors"
             })
         },
-        created() {
-            this.$store.dispatch("loadData")
-                .then(() => console.log("DATA LOADED SUCCESSFULLY"))
-                .catch(() => console.log("DATA LOADED WITH ERRORS"))
-        }
+        // created() {
+        //     this.$store.dispatch("loadData")
+        //         .then(() => console.log("DATA LOADED SUCCESSFULLY"))
+        //         .catch(() => console.log("DATA LOADED WITH ERRORS"))
+        // }
     }
 </script>
 

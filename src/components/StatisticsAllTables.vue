@@ -29,14 +29,17 @@
         </div>
         <div v-for="table in Object.keys(tables)">
             <div v-if="tables[table].values.length">
-                <p class="all-tables__title"
-                   v-bind:class="{'all-tables__title_hidden' : tables[table].hidden}">
+                <div class="all-tables__title-box">
+                    <p class="all-tables__title"
+                       v-bind:class="{'all-tables__title_hidden' : tables[table].hidden}">
                         {{tables[table].name}}
-                    <img class="all-tables__title-image active"
-                         v-bind:class="{'all-tables__title-image_hidden' : tables[table].hidden}"
-                         src="../../public/sort-img.png"
-                         v-on:click="changeTableVisability(table)">
-                </p>
+                    </p>
+                    <div v-on:click="changeTableVisability(table)">
+                        <img class="all-tables__title-image active"
+                             v-bind:class="{'all-tables__title-image_hidden' : tables[table].hidden}"
+                             src="../../public/sort-img.png">
+                    </div>
+                </div>
                 <div class="all-tables__table-box" v-bind:class="{'all-tables__table_visible' : !tables[table].hidden,
                  'all-tables__table_hidden' : tables[table].hidden}">
                     <table class="all-tables__table">
@@ -312,6 +315,12 @@
         background: #ffffff;
         border-collapse: collapse;
     }
+    .all-tables__title-box {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
     .all-tables__table__title {
         color: #000000;;
         background: #F8CD46;
@@ -331,9 +340,9 @@
         text-align: left;
         border-bottom: 2px solid #eaeaea;
     }
-     .all-tables__table__row:last-child {
+    .all-tables__table__row:last-child {
         border-right: none;
-     }
+    }
     .all-tables__table__column {
         color: #282828;
         font-size: 14px;
@@ -342,10 +351,10 @@
         padding: 10px;
     }
     .all-tables__table__column:last-child {
-       border-right: none;
+        border-right: none;
     }
     table tr:nth-child(even) {
-      background: #f7f7f7;
+        background: #f7f7f7;
     }
     .all-tables__table_visible {
         height: auto;

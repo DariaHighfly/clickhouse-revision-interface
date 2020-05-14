@@ -1,9 +1,9 @@
 <template>
-    <div>
-        <div class="all-tests">
+    <div class="all-tests">
+        <div class="row">
             <PieChart
                     :commitName="commits.rightCommit.commit"
-                    :allTests="allQueries.length"
+                    :allTests="allQueries"
                     :failTests="runErrors.length"
                     :skippedTests="skippedTests.length">
             </PieChart>
@@ -11,19 +11,26 @@
                     :allTestsHistory="allTestsHistory">
             </ColumnChart>
         </div>
+        <div class="row">
+            <TimePerformanceColumnChart
+                    :timePerformance="timePerformance">
+            </TimePerformanceColumnChart>
+        </div>
     </div>
 </template>
 
 <script>
 import ColumnChart from "./ColumnChart";
 import PieChart from "./PieChart";
+import TimePerformanceColumnChart from "./TimePerformanceColumnChart"
 import {mapGetters} from "vuex";
 
 export default {
     name: "StatisticsCharts",
     components: {
         ColumnChart,
-        PieChart
+        PieChart,
+        TimePerformanceColumnChart
     },
     computed: {
         ...mapGetters({
@@ -37,13 +44,14 @@ export default {
             slowOnClientTests: "getSlowOnClientTests",
             allQueries: "getAllQueries",
             commitsHistory: "getCommitsHistory",
+            timePerformance: "getTimePerformance",
         }),
         allTestsHistory()  {
             let commitsAllTests = [];
             this.commitsHistory.map(elem => {
                 commitsAllTests.push({
                     commit: elem.commits.rightCommit,
-                    allTests: elem.allQueries.length,
+                    allTests: elem.allQueries,
                     failTests: elem.runErrors.length,
                     skippedTests: elem.skipped.length,
                 });
@@ -59,6 +67,12 @@ export default {
 
 <style scoped>
     .all-tests {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+    .row {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;

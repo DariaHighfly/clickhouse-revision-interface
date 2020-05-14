@@ -21,7 +21,6 @@
     import { mapGetters } from "vuex";
 
     import Navbar from "./components/Navbar"
-    import Information from "./components/Information"
     import StatisticsCharts from "./components/StatisticsCharts"
     import StatisticsAllTables from "./components/StatisticsAllTables"
 
@@ -29,7 +28,6 @@
         name: 'app',
         components: {
             Navbar,
-            Information,
             StatisticsCharts,
             StatisticsAllTables,
         },
@@ -57,7 +55,7 @@
 
 <style>
     #app {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        font-family: "Yandex Sans Display", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;

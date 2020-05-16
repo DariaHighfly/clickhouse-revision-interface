@@ -3,7 +3,7 @@
         <p class="columnChart__title">TIME PERFORMANCE OF CURRENT COMMIT</p>
         <div class="params">
             <p class="params__title">
-                Minimum Threshold:
+                Minimum Threshold (abs):
             </p>
             <div class="params__input-box">
                 <button class="params__input-box__button button-left" v-on:click="changeThreshold(0)">-</button>
@@ -39,18 +39,31 @@
                 let avgTime = [];
                 for (let key in this.timePerformance) {
                     // Average of time difference
-                    let currentAvgTime = this.timePerformance[key].reduce(
+                    let currentAvgTime = this.timePerformance[key].difference.reduce(
                         (previousValue, currentValue) => {
                             return previousValue += currentValue;
-                        }) / this.timePerformance[key].length;
+                        }) / this.timePerformance[key].difference.length;
                     if (Math.abs(currentAvgTime) > this.minimumThreshold) {
                         avgTime.push({name: key, avgTime: currentAvgTime});
                     }
                 }
+                // for (let key in this.timePerformance) {
+                //     // Average of time difference - geometric mean
+                //     let composition = this.timePerformance[key].reduce(
+                //         (previousValue, currentValue) => {
+                //             return previousValue *= currentValue;
+                //         });
+                //     console.log(composition);
+                //     let currentAvgTime = Math.pow(composition, 1/this.timePerformance[key].length);
+                //     console.log(1/this.timePerformance[key].length, currentAvgTime);
+                //     if (Math.abs(currentAvgTime) > this.minimumThreshold) {
+                //         avgTime.push({name: key, avgTime: currentAvgTime});
+                //     }
+                // }
                 avgTime.sort((a, b) => {
                     return (a.avgTime - b.avgTime);
                 });
-                avgTime.map(elem => data.push(elem.avgTime));
+                avgTime.map(elem => data.push(parseFloat(elem.avgTime)).toFixed(4));
                 this.testNames = [];
                 avgTime.map(elem => this.testNames.push(elem.name));
                 return [
@@ -129,18 +142,18 @@
     .columnChart {
         display: flex;
         flex-direction: column;
-        min-width: 600px;
+        min-width: 60vw;
     }
     .columnChart__title {
         font-size: 16px;
         text-align: center;
+        margin: 0;
     }
     .params {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        margin-left: 20px;
-        margin-bottom: 30px;
+        margin: 30px 0 30px 20px;
     }
     .params__input-box {
         display: flex;

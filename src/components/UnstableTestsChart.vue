@@ -89,6 +89,9 @@
                     tooltip: {
                         shared: true
                     },
+                    exporting: {
+                        enabled: false
+                    },
                     xAxis: [{
                         categories: this.testNamesForChart
                     }],

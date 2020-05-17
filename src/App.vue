@@ -1,6 +1,8 @@
 <template>
     <div id="app">
-        <Menu></Menu>
+        <Menu
+                :selected="selected">
+        </Menu>
         <div>
             <div class="navbar">
                 <Navbar/>
@@ -38,6 +40,11 @@
             StatisticsAllTables,
             Menu
         },
+        data() {
+            return {
+                selected: "dashboard"
+            }
+        },
         computed: {
             ...mapGetters({
                 commits: "getCommits",
@@ -63,6 +70,8 @@
 <style>
     body {
         margin: 0;
+        width: 100%;
+        background-color: #f4f6f8;
     }
     #app {
         font-family: "Yandex Sans Display", sans-serif;
@@ -72,12 +81,9 @@
         color: #2c3e50;
         display: flex;
         flex-direction: row;
-        width: 100%;
-        background-color: #f4f6f8;
     }
     .navbar {
-        width: 100vw;
-        color: black;
+        width: 100%;
         padding: 10px 0 15px 0;
         background-color: #FFFFFF;
     }

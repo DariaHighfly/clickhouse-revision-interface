@@ -1,9 +1,21 @@
 <template>
     <div class="menu">
-        <img class="menu__img" src="../../public/logo.svg">
+        <img class="main-logo" src="../../public/logo.svg">
         <div class="menu__list">
-            <a href="/">Dashboard</a>
-            <a href="/">Tables</a>
+            <a href="/">
+                <div class="menu__list__item"
+                     v-bind:class="{'menu__list__item-selected': (selected === 'dashboard')}">
+                    <img class="menu__img" src="../../public/dashboard.png">
+                    <p class="menu__text">Dashboard</p>
+                </div>
+            </a>
+            <a href="/">
+                <div class="menu__list__item"
+                     v-bind:class="{'menu__list__item-selected': (selected === 'tables')}">
+                    <img class="menu__img" src="../../public/tables.png">
+                    <p class="menu__text">Tables</p>
+                </div>
+            </a>
         </div>
     </div>
 </template>
@@ -11,15 +23,11 @@
 <script>
     export default {
         name: "Menu",
-        data() {
-            return {
-                // isOpen: false
+        props: {
+            selected: {
+                type: String,
+                default: ""
             }
-        },
-        methods: {
-            // openMenu() {
-            //     return:
-            // }
         }
     }
 </script>
@@ -31,24 +39,36 @@
         background-color: #FFFFFF;
         transition: 0.5s;
     }
-    .menu__img {
+    .main-logo {
         height: 50px;
         width: auto;
         margin: 20px 0 0 0;
     }
     .menu__list {
-        margin: 30px 0 0 0;
+        margin: 17px 0 0 0;
+    }
+    .menu__list__item {
+        margin: 0;
+        padding: 15px 10px 15px 10px;
+    }
+    .menu__list__item-selected {
+        background-color: #98c807;
+    }
+    .menu__img {
+        height: 35px;
+        width: auto;
     }
     .menu__list a {
-        padding: 10px 10px 10px 10px;
         text-decoration: none;
         font-size: 16px;
-        color: #818181;
+        color: #000000;
         display: block;
         transition: 0.3s;
     }
-
-    .menu__list a:hover {
-        color: #232323;
+    .menu__text {
+        text-decoration: none;
+        font-size: 16px;
+        color: #000000;
+        margin: 0;
     }
 </style>

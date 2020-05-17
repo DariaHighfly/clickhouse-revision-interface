@@ -87,13 +87,12 @@ export default {
                             return this.axis.defaultLabelFormatter.call(this);
                         }
                     },
-                    // stackLabels: {
-                    //     enabled: true,
-                    //     style: {
-                    //         fontWeight: 'bold',
-                    //         color: 'gray'
-                    //     }
-                    // }
+                    title: {
+                        text: 'Number of tests',
+                        style: {
+                            color: "gray"
+                        }
+                    }
                 },
                 tooltip: {
                     headerFormat: 'Commit from <b>{point.x}</b><br/>',

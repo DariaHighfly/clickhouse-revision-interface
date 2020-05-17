@@ -99,6 +99,12 @@
                                 return this.axis.defaultLabelFormatter.call(this);
                             }
                         },
+                        title: {
+                            text: 'Time, sec',
+                            style: {
+                                color: "gray"
+                            }
+                        }
                     },
                     tooltip: {
                         headerFormat: 'Test name: <b>{point.x}</b><br/>',
@@ -142,7 +148,7 @@
     .columnChart {
         display: flex;
         flex-direction: column;
-        min-width: 60vw;
+        min-width: 900px;
     }
     .columnChart__title {
         font-size: 16px;

@@ -96,6 +96,7 @@ export default {
         flex-direction: column;
         flex-wrap: wrap;
         align-items: flex-start;
+        margin-bottom: 40px;
     }
     .row {
         display: flex;

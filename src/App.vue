@@ -1,14 +1,30 @@
 <template>
     <div id="app">
-        <Menu
-                :selected="selected">
-        </Menu>
-        <div>
+        <div class="menu">
+            <img class="main-logo" src="../public/logo.svg">
+            <div class="menu__list">
+                <div class="menu__list__item"
+                     v-on:click="changePage('dashboard')"
+                     v-bind:class="{'menu__list__item-selected': (currentPage === 'dashboard')}">
+                    <img class="menu__img" src="../public/dashboard.png">
+                    <p class="menu__text">Dashboard</p>
+                </div>
+                <div class="menu__list__item"
+                     v-on:click="changePage('tables')"
+                     v-bind:class="{'menu__list__item-selected': (currentPage === 'tables')}">
+                    <img class="menu__img" src="../public/tables.png">
+                    <p class="menu__text">Tables</p>
+                </div>
+            </div>
+        </div>
+        <div class="app__page">
             <div class="navbar">
                 <Navbar/>
             </div>
-            <div class="box">
+            <div class="box" v-if="currentPage === 'dashboard'">
                 <StatisticsCharts/>
+            </div>
+            <div class="box" v-if="currentPage === 'tables'">
                 <StatisticsAllTables
                         :commits="commits"
                         :changes="changes"
@@ -30,19 +46,17 @@
     import Navbar from "./components/Navbar"
     import StatisticsCharts from "./components/StatisticsCharts"
     import StatisticsAllTables from "./components/StatisticsAllTables"
-    import Menu from "./components/Menu"
 
     export default {
         name: 'app',
         components: {
             Navbar,
             StatisticsCharts,
-            StatisticsAllTables,
-            Menu
+            StatisticsAllTables
         },
         data() {
             return {
-                selected: "dashboard"
+                currentPage: "dashboard"
             }
         },
         computed: {
@@ -54,16 +68,14 @@
                 skippedTests: "getSkippedTests",
                 badTests: "getBadTests",
                 testTimes: "getTestTimes",
-                slowOnClientTests: "getSlowOnClientTests",
-                allQueries: "getAllQueries",
-                // dataErrors: "getDataErrors"
+                slowOnClientTests: "getSlowOnClientTests"
             })
         },
-        // created() {
-        //     this.$store.dispatch("loadData")
-        //         .then(() => console.log("DATA LOADED SUCCESSFULLY"))
-        //         .catch(() => console.log("DATA LOADED WITH ERRORS"))
-        // }
+        methods: {
+            changePage(page) {
+                this.currentPage = page;
+            }
+        }
     }
 </script>
 
@@ -81,6 +93,11 @@
         color: #2c3e50;
         display: flex;
         flex-direction: row;
+        width: 100%;
+        background-color: #f4f6f8;
+    }
+    .app__page {
+        width: 100%;
     }
     .navbar {
         width: 100%;
@@ -90,5 +107,45 @@
     .box {
         padding: 0 20px 0 20px;
         overflow: scroll;
+    }
+
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        background-color: #FFFFFF;
+        transition: 0.5s;
+    }
+    .main-logo {
+        height: 50px;
+        width: auto;
+        margin: 20px 0 0 0;
+    }
+    .menu__list {
+        margin: 17px 0 0 0;
+    }
+    .menu__list__item {
+        margin: 0;
+        padding: 15px 10px 15px 10px;
+    }
+    .menu__list__item-selected {
+        background-color: #98c807;
+    }
+    .menu__img {
+        height: 35px;
+        width: auto;
+    }
+    .menu__list a {
+        text-decoration: none;
+        font-size: 16px;
+        color: #000000;
+        display: block;
+        transition: 0.3s;
+    }
+    .menu__text {
+        text-decoration: none;
+        font-size: 16px;
+        color: #000000;
+        margin: 0;
     }
 </style>

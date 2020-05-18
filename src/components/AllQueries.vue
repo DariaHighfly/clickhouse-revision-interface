@@ -150,15 +150,10 @@
     .all-tables__table {
         background: #ffffff;
         border-collapse: collapse;
-        table-layout: fixed;
-    }
-    .all-tables__table tr {
-        white-space: pre-wrap;
-        max-height: 230px;
-        overflow-y: scroll;
     }
     .all-tables__table tr td {
         white-space: normal;
+        min-width: 50px;
         max-width: 630px;
         word-break: break-word;
     }

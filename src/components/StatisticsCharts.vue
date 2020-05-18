@@ -1,5 +1,8 @@
 <template>
     <div class="all-tests">
+        <Title
+                :commitName="commits.rightCommit.commit">
+        </Title>
         <div class="row">
             <div class="column">
                 <PieChart
@@ -38,56 +41,58 @@
 </template>
 
 <script>
-import HistoryTestsColumnChart from "./HistoryTestsColumnChart";
-import PieChart from "./PieChart";
-import TimePerformanceColumnChart from "./TimePerformanceColumnChart"
-import AllTestsTimeSpline from "./AllTestsTimeSpline"
-import UnstableTestsChart from "./UnstableTestsChart"
-import TestStatistics from "./TestStatistics"
-import {mapGetters} from "vuex";
+    import Title from "./Title"
+    import HistoryTestsColumnChart from "./HistoryTestsColumnChart";
+    import PieChart from "./PieChart";
+    import TimePerformanceColumnChart from "./TimePerformanceColumnChart"
+    import AllTestsTimeSpline from "./AllTestsTimeSpline"
+    import UnstableTestsChart from "./UnstableTestsChart"
+    import TestStatistics from "./TestStatistics"
+    import {mapGetters} from "vuex";
 
-export default {
-    name: "StatisticsCharts",
-    components: {
-        HistoryTestsColumnChart,
-        PieChart,
-        TestStatistics,
-        TimePerformanceColumnChart,
-        AllTestsTimeSpline,
-        UnstableTestsChart
-    },
-    computed: {
-        ...mapGetters({
-            commits: "getCommits",
-            changes: "getChanges",
-            unstableQueries: "getUnstableQueries",
-            runErrors: "getRunErrors",
-            skippedTests: "getSkippedTests",
-            badTests: "getBadTests",
-            testTimes: "getTestTimes",
-            slowOnClientTests: "getSlowOnClientTests",
-            allQueries: "getAllQueries",
-            commitsHistory: "getCommitsHistory",
-            timePerformance: "getTimePerformance",
-        }),
-        allTestsHistory()  {
-            let commitsAllTests = [];
-            this.commitsHistory.map(elem => {
-                commitsAllTests.push({
-                    commit: elem.commits.rightCommit,
-                    allTests: elem.allQueries,
-                    failTests: elem.runErrors.length,
-                    skippedTests: elem.skipped.length,
-                    timePerformance: elem.timePerformance
+    export default {
+        name: "StatisticsCharts",
+        components: {
+            Title,
+            HistoryTestsColumnChart,
+            PieChart,
+            TestStatistics,
+            TimePerformanceColumnChart,
+            AllTestsTimeSpline,
+            UnstableTestsChart
+        },
+        computed: {
+            ...mapGetters({
+                commits: "getCommits",
+                changes: "getChanges",
+                unstableQueries: "getUnstableQueries",
+                runErrors: "getRunErrors",
+                skippedTests: "getSkippedTests",
+                badTests: "getBadTests",
+                testTimes: "getTestTimes",
+                slowOnClientTests: "getSlowOnClientTests",
+                allQueries: "getAllQueries",
+                commitsHistory: "getCommitsHistory",
+                timePerformance: "getTimePerformance",
+            }),
+            allTestsHistory()  {
+                let commitsAllTests = [];
+                this.commitsHistory.map(elem => {
+                    commitsAllTests.push({
+                        commit: elem.commits.rightCommit,
+                        allTests: elem.allQueries,
+                        failTests: elem.runErrors.length,
+                        skippedTests: elem.skipped.length,
+                        timePerformance: elem.timePerformance
+                    });
                 });
-            });
-            commitsAllTests.sort((a,b) => {
-                return (new Date(a.commit.date) - new Date(b.commit.date))
-            });
-            return commitsAllTests;
+                commitsAllTests.sort((a,b) => {
+                    return (new Date(a.commit.date) - new Date(b.commit.date))
+                });
+                return commitsAllTests;
+            }
         }
     }
-}
 </script>
 
 <style scoped>

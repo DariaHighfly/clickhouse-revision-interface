@@ -135,6 +135,15 @@
                     hidden: false
                 },
                 tables: {
+                    currentRunErrors: {
+                        name: "Run errors",
+                        columns: [
+                            { testName: "Test" },
+                            { error: "Error" }
+                        ],
+                        values: [...this.runErrors],
+                        hidden: false
+                    },
                     currentChanges: {
                         name: "Changes in performance",
                         columns: [
@@ -158,16 +167,16 @@
                             { testName:  "Test" },
                             { query: "Query" }
                         ],
-                        values: [...this.unstableQueries],
-                        hidden: false
-                    },
-                    currentRunErrors: {
-                        name: "Run errors",
-                        columns: [
-                            { testName: "Test" },
-                            { error: "Error" }
-                        ],
-                        values: [...this.runErrors],
+                        values:  this.unstableQueries.map(elem => {
+                            let allowed = ["oldTime", "newTime", "relativeDifference", "quantiles", "testName", "query"];
+                            let filtered = Object.keys(elem)
+                                .filter(key => allowed.includes(key))
+                                .reduce((obj, key) => {
+                                    obj[key] = elem[key];
+                                    return obj;
+                                }, {});
+                            return filtered;
+                        }),
                         hidden: false
                     },
                     currentSkippedTests: {
